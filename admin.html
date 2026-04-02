@@ -1,708 +1,518 @@
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cosmos Lounge — Админ-панель</title>
+<title>Cosmos Lounge — Админ</title>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#07070f;
-  --surface:#0e0e1c;
-  --surface2:#14142a;
-  --surface3:#1a1a32;
-  --border:rgba(255,255,255,0.07);
-  --border2:rgba(255,255,255,0.13);
-  --text:#e8e6ff;
-  --muted:rgba(232,230,255,0.45);
-  --tea:#1ec971;
-  --soft:#3aacf7;
-  --bar:#e9a43f;
-  --hookah:#b96dff;
-  --promo:#f04f4f;
-  --accent:#b96dff;
-  --danger:#f04f4f;
-  --success:#1ec971;
+  --bg:#07070f;--surface:#0e0e1c;--surface2:#14142a;--surface3:#1a1a32;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#e8e6ff;--muted:rgba(232,230,255,0.45);
+  --tea:#1ec971;--soft:#3aacf7;--bar:#e9a43f;--hookah:#b96dff;--promo:#f04f4f;--accent:#b96dff;
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.5;min-height:100vh}
-
-/* ── SIDEBAR ── */
 .layout{display:flex;min-height:100vh}
-.sidebar{width:220px;background:var(–surface);border-right:1px solid var(–border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s}
-.sidebar-logo{padding:24px 20px 18px;border-bottom:1px solid var(–border)}
-.logo-mark{font-family:‘Unbounded’,sans-serif;font-size:13px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;background:linear-gradient(120deg,#b96dff,#1ec971);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.logo-sub{font-size:9px;letter-spacing:.25em;color:var(–muted);text-transform:uppercase;margin-top:2px}
+.sidebar{width:220px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s}
+.sidebar-logo{padding:24px 20px 18px;border-bottom:1px solid var(--border)}
+.logo-mark{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;background:linear-gradient(120deg,#b96dff,#1ec971);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.logo-sub{font-size:9px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-top:2px}
 .sidebar-nav{flex:1;padding:16px 0;overflow-y:auto}
-.nav-section{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(–muted);padding:12px 20px 6px}
-.nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;transition:all .18s;color:var(–muted);font-size:11px;letter-spacing:.05em;border-left:2px solid transparent;text-decoration:none}
-.nav-item:hover{color:var(–text);background:rgba(255,255,255,.04)}
-.nav-item.active{color:var(–text);border-left-color:var(–accent);background:rgba(185,109,255,.08)}
-.nav-item .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.dot-tea{background:var(–tea)}.dot-soft{background:var(–soft)}.dot-bar{background:var(–bar)}.dot-hookah{background:var(–hookah)}.dot-promo{background:var(–promo)}.dot-settings{background:var(–muted)}
-.sidebar-footer{padding:16px 20px;border-top:1px solid var(–border);font-size:9px;color:var(–muted);letter-spacing:.1em}
-.sync-status{display:flex;align-items:center;gap:6px;margin-bottom:6px}
-.sync-dot{width:6px;height:6px;border-radius:50%;background:var(–muted);flex-shrink:0;transition:background .3s}
-.sync-dot.ok{background:var(–success);box-shadow:0 0 6px var(–success)}
-.sync-dot.err{background:var(–danger);box-shadow:0 0 6px var(–danger)}
-.sync-dot.loading{background:var(–bar);animation:pulse 1s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-
-/* ── MAIN ── */
+.nav-section{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);padding:12px 20px 6px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;transition:all .18s;color:var(--muted);font-size:11px;letter-spacing:.05em;border-left:2px solid transparent}
+.nav-item:hover{color:var(--text);background:rgba(255,255,255,.04)}
+.nav-item.active{color:var(--text);border-left-color:var(--accent);background:rgba(185,109,255,.08)}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dot-tea{background:var(--tea)}.dot-soft{background:var(--soft)}.dot-bar{background:var(--bar)}.dot-hookah{background:var(--hookah)}.dot-promo{background:var(--promo)}
+.sidebar-footer{padding:16px 20px;border-top:1px solid var(--border);font-size:9px;color:var(--muted)}
+.sync-status{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.sync-dot{width:6px;height:6px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:background .3s}
+.sync-dot.ok{background:var(--tea);box-shadow:0 0 6px var(--tea)}
+.sync-dot.err{background:var(--promo);box-shadow:0 0 6px var(--promo)}
+.sync-dot.loading{background:var(--bar);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .main{flex:1;margin-left:220px;display:flex;flex-direction:column;min-height:100vh}
-.topbar{padding:16px 28px;border-bottom:1px solid var(–border);display:flex;align-items:center;justify-content:space-between;background:var(–surface);position:sticky;top:0;z-index:50}
-.topbar-title{font-family:‘Unbounded’,sans-serif;font-size:14px;font-weight:300;letter-spacing:.1em}
+.topbar{padding:16px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface);position:sticky;top:0;z-index:50;flex-wrap:wrap;gap:8px}
+.topbar-title{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:300;letter-spacing:.1em}
 .topbar-actions{display:flex;gap:8px;align-items:center}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:6px;font-family:‘JetBrains Mono’,monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;transition:all .18s}
-.btn-ghost{background:transparent;color:var(–muted);border:1px solid var(–border2)}
-.btn-ghost:hover{color:var(–text);border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.05)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;transition:all .18s}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border2)}
+.btn-ghost:hover{color:var(--text);border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.05)}
 .btn-primary{background:rgba(185,109,255,.2);color:#d4a8ff;border:1px solid rgba(185,109,255,.4)}
-.btn-primary:hover{background:rgba(185,109,255,.32);border-color:rgba(185,109,255,.6)}
-.btn-success{background:rgba(30,201,113,.15);color:var(–tea);border:1px solid rgba(30,201,113,.35)}
+.btn-primary:hover{background:rgba(185,109,255,.32)}
+.btn-success{background:rgba(30,201,113,.15);color:var(--tea);border:1px solid rgba(30,201,113,.35)}
 .btn-success:hover{background:rgba(30,201,113,.25)}
-.btn-danger{background:rgba(240,79,79,.15);color:var(–promo);border:1px solid rgba(240,79,79,.35)}
+.btn-danger{background:rgba(240,79,79,.15);color:var(--promo);border:1px solid rgba(240,79,79,.35)}
 .btn-danger:hover{background:rgba(240,79,79,.25)}
 .btn-sm{padding:4px 10px;font-size:9px}
 .btn:disabled{opacity:.4;cursor:not-allowed}
-
 .content{padding:28px;flex:1}
-.page{display:none}
-.page.active{display:block}
-
-/* ── CARDS ── */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:28px}
-.stat-card{background:var(–surface);border:1px solid var(–border);border-radius:10px;padding:16px;position:relative;overflow:hidden}
-.stat-card::before{content:’’;position:absolute;top:0;left:0;right:0;height:2px}
-.sc-tea::before{background:var(–tea)}.sc-soft::before{background:var(–soft)}.sc-bar::before{background:var(–bar)}.sc-hookah::before{background:var(–hookah)}.sc-promo::before{background:var(–promo)}
-.stat-num{font-family:‘Unbounded’,sans-serif;font-size:24px;font-weight:300;margin-bottom:4px}
-.stat-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(–muted)}
-
-/* ── TABLE ── */
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.section-title{font-family:‘Unbounded’,sans-serif;font-size:12px;font-weight:400;letter-spacing:.15em;text-transform:uppercase}
-.table-wrap{background:var(–surface);border:1px solid var(–border);border-radius:10px;overflow:hidden;margin-bottom:28px}
-.table-head{display:grid;padding:10px 16px;background:var(–surface2);border-bottom:1px solid var(–border);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(–muted)}
-.table-row{display:grid;padding:10px 16px;border-bottom:1px solid var(–border);align-items:center;transition:background .15s}
-.table-row:last-child{border-bottom:none}
-.table-row:hover{background:rgba(255,255,255,.03)}
-/* columns for menu items */
-.col-menu{grid-template-columns:1fr 120px 100px 90px 70px}
-.col-cat{grid-template-columns:1fr 120px 80px}
-.col-promo{grid-template-columns:80px 1fr 90px}
+.page{display:none}.page.active{display:block}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:24px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.sc-tea::before{background:var(--tea)}.sc-soft::before{background:var(--soft)}.sc-bar::before{background:var(--bar)}.sc-hookah::before{background:var(--hookah)}.sc-promo::before{background:var(--promo)}
+.stat-num{font-family:'Unbounded',sans-serif;font-size:24px;font-weight:300;margin-bottom:4px}
+.stat-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.section-title{font-family:'Unbounded',sans-serif;font-size:12px;font-weight:400;letter-spacing:.15em;text-transform:uppercase}
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px}
+.th{display:grid;grid-template-columns:1fr 110px 90px 80px 80px;padding:10px 16px;background:var(--surface2);border-bottom:1px solid var(--border);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.tr{display:grid;grid-template-columns:1fr 110px 90px 80px 80px;padding:10px 16px;border-bottom:1px solid var(--border);align-items:center;transition:background .15s}
+.tr:last-child{border-bottom:none}
+.tr:hover{background:rgba(255,255,255,.03)}
+.th-promo{display:grid;grid-template-columns:90px 1fr 80px;padding:10px 16px;background:var(--surface2);border-bottom:1px solid var(--border);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.tr-promo{display:grid;grid-template-columns:90px 1fr 80px;padding:12px 16px;border-bottom:1px solid var(--border);align-items:center;transition:background .15s}
+.tr-promo:last-child{border-bottom:none}
+.tr-promo:hover{background:rgba(255,255,255,.03)}
 .cell{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:8px}
-.cell-actions{display:flex;gap:4px;justify-content:flex-end}
+.cell-act{display:flex;gap:4px;justify-content:flex-end}
 .badge{display:inline-block;font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:12px}
-.badge-tea{background:rgba(30,201,113,.15);color:var(–tea);border:1px solid rgba(30,201,113,.25)}
-.badge-soft{background:rgba(58,172,247,.15);color:var(–soft);border:1px solid rgba(58,172,247,.25)}
-.badge-bar{background:rgba(233,164,63,.15);color:var(–bar);border:1px solid rgba(233,164,63,.25)}
-.badge-hookah{background:rgba(185,109,255,.15);color:var(–hookah);border:1px solid rgba(185,109,255,.25)}
-.badge-promo-tag{background:rgba(240,79,79,.15);color:var(–promo);border:1px solid rgba(240,79,79,.25)}
-.empty-state{text-align:center;padding:40px;color:var(–muted);font-size:12px;letter-spacing:.05em}
-
-/* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(7,7,15,.85);backdrop-filter:blur(10px);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
+.b-tea{background:rgba(30,201,113,.15);color:var(--tea);border:1px solid rgba(30,201,113,.25)}
+.b-soft{background:rgba(58,172,247,.15);color:var(--soft);border:1px solid rgba(58,172,247,.25)}
+.b-bar{background:rgba(233,164,63,.15);color:var(--bar);border:1px solid rgba(233,164,63,.25)}
+.b-hookah{background:rgba(185,109,255,.15);color:var(--hookah);border:1px solid rgba(185,109,255,.25)}
+.b-promo{background:rgba(240,79,79,.15);color:var(--promo);border:1px solid rgba(240,79,79,.25)}
+.empty{text-align:center;padding:40px;color:var(--muted);font-size:12px}
+.modal-overlay{position:fixed;inset:0;background:rgba(7,7,15,.88);backdrop-filter:blur(10px);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.open{display:flex}
-.modal{background:var(–surface);border:1px solid var(–border2);border-radius:14px;width:100%;max-width:480px;overflow:hidden;animation:modalIn .2s ease}
-@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
-.modal-head{padding:20px 24px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(–border)}
-.modal-title{font-family:‘Unbounded’,sans-serif;font-size:12px;font-weight:400;letter-spacing:.15em;text-transform:uppercase}
-.modal-close{background:none;border:none;color:var(–muted);cursor:pointer;font-size:18px;line-height:1;padding:2px 6px;border-radius:4px;transition:color .15s}
-.modal-close:hover{color:var(–text)}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:14px;width:100%;max-width:460px;overflow:hidden;animation:mIn .2s ease}
+@keyframes mIn{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:none}}
+.modal-head{padding:20px 24px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.modal-title{font-family:'Unbounded',sans-serif;font-size:12px;font-weight:400;letter-spacing:.15em;text-transform:uppercase}
+.modal-close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;padding:2px 6px;border-radius:4px;transition:color .15s}
+.modal-close:hover{color:var(--text)}
 .modal-body{padding:20px 24px}
-.modal-footer{padding:14px 24px;border-top:1px solid var(–border);display:flex;gap:8px;justify-content:flex-end}
-
-/* ── FORM ── */
-.form-group{margin-bottom:16px}
-.form-label{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(–muted);margin-bottom:7px}
-.form-input,.form-select,.form-textarea{width:100%;background:var(–surface2);border:1px solid var(–border2);border-radius:7px;padding:9px 12px;color:var(–text);font-family:‘JetBrains Mono’,monospace;font-size:12px;outline:none;transition:border-color .18s}
-.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:rgba(185,109,255,.5);background:var(–surface3)}
-.form-select option{background:var(–surface2)}
-.form-textarea{resize:vertical;min-height:80px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.form-check{display:flex;align-items:center;gap:8px;cursor:pointer}
-.form-check input[type=checkbox]{width:14px;height:14px;accent-color:var(–accent)}
-
-/* ── SETTINGS ── */
-.settings-card{background:var(–surface);border:1px solid var(–border);border-radius:10px;padding:20px;margin-bottom:16px}
-.settings-card-title{font-family:‘Unbounded’,sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:14px;color:var(–muted)}
-.url-display{display:flex;align-items:center;gap:8px;background:var(–surface2);border:1px solid var(–border);border-radius:7px;padding:8px 12px;font-size:11px;color:var(–muted);word-break:break-all}
-.url-display.connected{border-color:rgba(30,201,113,.3);color:var(–tea)}
-
-/* ── TOAST ── */
+.modal-footer{padding:14px 24px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
+.fg{margin-bottom:14px}
+.fl{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.fi,.fs,.ft{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:9px 12px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;transition:border-color .18s}
+.fi:focus,.fs:focus,.ft:focus{border-color:rgba(185,109,255,.5);background:var(--surface3)}
+.fs option{background:var(--surface2)}
+.ft{resize:vertical;min-height:70px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.scard{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
+.stitle{font-family:'Unbounded',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:14px;color:var(--muted)}
+.alert{padding:12px 16px;border-radius:8px;font-size:11px;line-height:1.7;margin-bottom:16px;border:1px solid}
+.alert-warn{background:rgba(233,164,63,.1);border-color:rgba(233,164,63,.3);color:var(--bar)}
+.alert-success{background:rgba(30,201,113,.1);border-color:rgba(30,201,113,.3);color:var(--tea)}
 .toast-container{position:fixed;bottom:24px;right:24px;z-index:2000;display:flex;flex-direction:column;gap:8px}
-.toast{padding:10px 16px;border-radius:8px;font-size:11px;letter-spacing:.05em;animation:toastIn .25s ease;display:flex;align-items:center;gap:8px;min-width:240px;border:1px solid}
-.toast.success{background:rgba(30,201,113,.15);border-color:rgba(30,201,113,.35);color:var(–tea)}
-.toast.error{background:rgba(240,79,79,.15);border-color:rgba(240,79,79,.35);color:var(–promo)}
+.toast{padding:10px 16px;border-radius:8px;font-size:11px;animation:tIn .25s ease;display:flex;align-items:center;gap:8px;min-width:220px;max-width:340px;border:1px solid;line-height:1.4}
+.toast.success{background:rgba(30,201,113,.15);border-color:rgba(30,201,113,.35);color:var(--tea)}
+.toast.error{background:rgba(240,79,79,.15);border-color:rgba(240,79,79,.35);color:var(--promo)}
 .toast.info{background:rgba(185,109,255,.15);border-color:rgba(185,109,255,.35);color:#d4a8ff}
-@keyframes toastIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
-
-/* ── MOBILE ── */
-.mobile-toggle{display:none;position:fixed;top:14px;left:14px;z-index:200;background:var(–surface);border:1px solid var(–border2);border-radius:8px;padding:8px 10px;cursor:pointer;color:var(–text)}
-@media(max-width:768px){
-.sidebar{transform:translateX(-100%)}
-.sidebar.open{transform:translateX(0)}
-.main{margin-left:0}
-.mobile-toggle{display:flex}
-.topbar{padding-left:54px}
-.stats-grid{grid-template-columns:repeat(2,1fr)}
-.col-menu{grid-template-columns:1fr 80px 60px}
-.col-menu .cell:nth-child(2),.col-menu .cell:nth-child(3){display:none}
-.content{padding:16px}
-}
-
-/* ── OVERLAY SIDEBAR ── */
+@keyframes tIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+.mobile-toggle{display:none;position:fixed;top:14px;left:14px;z-index:200;background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:8px 10px;cursor:pointer;color:var(--text)}
 .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;display:none}
 .sidebar-overlay.open{display:block}
-
-/* ── DRAG HINT ── */
-.drag-handle{cursor:grab;color:var(–muted);font-size:14px;margin-right:4px;user-select:none}
-.drag-handle:active{cursor:grabbing}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}.mobile-toggle{display:flex}.topbar{padding-left:54px}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .th,.tr{grid-template-columns:1fr 70px 70px}
+  .th>*:nth-child(2),.tr>*:nth-child(2),.th>*:nth-child(3),.tr>*:nth-child(3){display:none}
+  .content{padding:14px}
+}
 </style>
-
 </head>
 <body>
-
 <button class="mobile-toggle" id="mobileToggle">☰</button>
-
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
 <div class="layout">
-  <!-- SIDEBAR -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-logo">
-      <div class="logo-mark">Cosmos</div>
-      <div class="logo-sub">Admin Panel</div>
-    </div>
-    <nav class="sidebar-nav">
-      <div class="nav-section">Навигация</div>
-      <a class="nav-item active" data-page="dashboard">
-        <span style="font-size:14px">◈</span> Обзор
-      </a>
-      <div class="nav-section">Меню</div>
-      <a class="nav-item" data-page="tea">
-        <span class="dot dot-tea"></span> Чай
-      </a>
-      <a class="nav-item" data-page="soft">
-        <span class="dot dot-soft"></span> Напитки
-      </a>
-      <a class="nav-item" data-page="bar">
-        <span class="dot dot-bar"></span> Бар
-      </a>
-      <a class="nav-item" data-page="hookah">
-        <span class="dot dot-hookah"></span> Кальян
-      </a>
-      <div class="nav-section">Прочее</div>
-      <a class="nav-item" data-page="promo">
-        <span class="dot dot-promo"></span> Акции
-      </a>
-      <a class="nav-item" data-page="settings">
-        <span style="font-size:12px">⚙</span> Настройки
-      </a>
-    </nav>
-    <div class="sidebar-footer">
-      <div class="sync-status">
-        <div class="sync-dot" id="syncDot"></div>
-        <span id="syncLabel">Не подключено</span>
-      </div>
-      <div id="syncTime" style="font-size:8px;color:var(--muted)"></div>
-    </div>
-  </aside>
 
-  <!-- MAIN -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">Cosmos</div>
+    <div class="logo-sub">Admin Panel</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">Навигация</div>
+    <div class="nav-item active" data-page="dashboard">◈ &nbsp;Обзор</div>
+    <div class="nav-section">Меню</div>
+    <div class="nav-item" data-page="tea"><span class="dot dot-tea"></span>&nbsp; Чай</div>
+    <div class="nav-item" data-page="soft"><span class="dot dot-soft"></span>&nbsp; Напитки</div>
+    <div class="nav-item" data-page="bar"><span class="dot dot-bar"></span>&nbsp; Бар</div>
+    <div class="nav-item" data-page="hookah"><span class="dot dot-hookah"></span>&nbsp; Кальян</div>
+    <div class="nav-section">Прочее</div>
+    <div class="nav-item" data-page="promo"><span class="dot dot-promo"></span>&nbsp; Акции</div>
+    <div class="nav-item" data-page="settings">⚙ &nbsp;Настройки</div>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sync-status"><div class="sync-dot" id="syncDot"></div><span id="syncLabel">Не настроено</span></div>
+    <div id="syncTime" style="font-size:8px;margin-top:2px"></div>
+  </div>
+</aside>
 
-  <main class="main">
-    <div class="topbar">
-      <div class="topbar-title" id="pageTitle">Обзор</div>
-      <div class="topbar-actions">
-        <button class="btn btn-ghost" onclick="syncFromSheets()" id="syncBtn">↻ Загрузить</button>
-        <button class="btn btn-success" onclick="pushToSheets()" id="pushBtn">↑ Сохранить в таблицу</button>
-      </div>
-    </div>
-
-```
-<div class="content">
-  <!-- DASHBOARD -->
-  <div class="page active" id="page-dashboard">
-    <div class="stats-grid">
-      <div class="stat-card sc-tea"><div class="stat-num" id="cnt-tea">0</div><div class="stat-label">Чай</div></div>
-      <div class="stat-card sc-soft"><div class="stat-num" id="cnt-soft">0</div><div class="stat-label">Напитки</div></div>
-      <div class="stat-card sc-bar"><div class="stat-num" id="cnt-bar">0</div><div class="stat-label">Бар</div></div>
-      <div class="stat-card sc-hookah"><div class="stat-num" id="cnt-hookah">0</div><div class="stat-label">Кальян</div></div>
-      <div class="stat-card sc-promo"><div class="stat-num" id="cnt-promo">0</div><div class="stat-label">Акции</div></div>
-    </div>
-    <div class="table-wrap">
-      <div style="padding:20px 20px 10px;border-bottom:1px solid var(--border)">
-        <div style="font-family:Unbounded,sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Быстрый обзор</div>
-        <div style="font-size:12px;color:var(--muted)">Выберите раздел в сайдбаре для управления позициями меню.</div>
-      </div>
-      <div style="padding:16px 20px;font-size:11px;color:var(--muted);line-height:2">
-        ✦ &nbsp;Все изменения хранятся локально до нажатия <b style="color:var(--text)">«Сохранить в таблицу»</b><br>
-        ↻ &nbsp;<b style="color:var(--text)">«Загрузить»</b> — подтягивает актуальные данные из Google Таблицы<br>
-        ★ &nbsp;Настройте URL скрипта в разделе <b style="color:var(--text)">«Настройки»</b>
-      </div>
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-title" id="pageTitle">Обзор</div>
+    <div class="topbar-actions">
+      <button class="btn btn-ghost" onclick="loadFromSheets()" id="syncBtn">↻ Загрузить из таблицы</button>
+      <button class="btn btn-success" id="addBtn" style="display:none" onclick="handleAdd()">+ Добавить</button>
     </div>
   </div>
+  <div class="content">
 
-  <!-- TEA -->
-  <div class="page" id="page-tea">
-    <div class="section-header">
-      <div class="section-title" style="color:var(--tea)">✦ Чайная карта</div>
-      <button class="btn btn-success" onclick="openAddModal('tea')">+ Добавить позицию</button>
-    </div>
-    <div id="table-tea"></div>
-  </div>
-
-  <!-- SOFT -->
-  <div class="page" id="page-soft">
-    <div class="section-header">
-      <div class="section-title" style="color:var(--soft)">◈ Безалкогольные напитки</div>
-      <button class="btn btn-success" onclick="openAddModal('soft')">+ Добавить позицию</button>
-    </div>
-    <div id="table-soft"></div>
-  </div>
-
-  <!-- BAR -->
-  <div class="page" id="page-bar">
-    <div class="section-header">
-      <div class="section-title" style="color:var(--bar)">◆ Карта бара</div>
-      <button class="btn btn-success" onclick="openAddModal('bar')">+ Добавить позицию</button>
-    </div>
-    <div id="table-bar"></div>
-  </div>
-
-  <!-- HOOKAH -->
-  <div class="page" id="page-hookah">
-    <div class="section-header">
-      <div class="section-title" style="color:var(--hookah)">⬡ Кальян</div>
-      <button class="btn btn-success" onclick="openAddModal('hookah')">+ Добавить позицию</button>
-    </div>
-    <div id="table-hookah"></div>
-  </div>
-
-  <!-- PROMO -->
-  <div class="page" id="page-promo">
-    <div class="section-header">
-      <div class="section-title" style="color:var(--promo)">★ Акции</div>
-      <button class="btn btn-danger" onclick="openAddPromo()">+ Добавить акцию</button>
-    </div>
-    <div id="table-promo"></div>
-  </div>
-
-  <!-- SETTINGS -->
-  <div class="page" id="page-settings">
-    <div class="settings-card">
-      <div class="settings-card-title">Google Apps Script</div>
-      <div class="form-group">
-        <label class="form-label">URL веб-приложения (Apps Script)</label>
-        <input class="form-input" id="scriptUrl" type="text" placeholder="https://script.google.com/macros/s/AKfy.../exec" />
+    <div class="page active" id="page-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card sc-tea"><div class="stat-num" id="cnt-tea">0</div><div class="stat-label">Чай</div></div>
+        <div class="stat-card sc-soft"><div class="stat-num" id="cnt-soft">0</div><div class="stat-label">Напитки</div></div>
+        <div class="stat-card sc-bar"><div class="stat-num" id="cnt-bar">0</div><div class="stat-label">Бар</div></div>
+        <div class="stat-card sc-hookah"><div class="stat-num" id="cnt-hookah">0</div><div class="stat-label">Кальян</div></div>
+        <div class="stat-card sc-promo"><div class="stat-num" id="cnt-promo">0</div><div class="stat-label">Акции</div></div>
       </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="saveScriptUrl()">Сохранить URL</button>
-        <button class="btn btn-ghost" onclick="testConnection()">Проверить соединение</button>
-      </div>
-      <div id="urlStatus" style="margin-top:12px;font-size:11px;color:var(--muted)"></div>
-    </div>
-
-    <div class="settings-card">
-      <div class="settings-card-title">Инструкция по подключению</div>
-      <div style="font-size:11px;color:var(--muted);line-height:2.2">
-        <b style="color:var(--text);letter-spacing:.05em">1.</b> Откройте Google Таблицу и создайте 5 листов:<br>
-        &nbsp;&nbsp;&nbsp;<span style="color:var(--tea)">tea</span> · <span style="color:var(--soft)">soft</span> · <span style="color:var(--bar)">bar</span> · <span style="color:var(--hookah)">hookah</span> · <span style="color:var(--promo)">promo</span><br><br>
-        <b style="color:var(--text)">2.</b> В каждом листе (кроме promo) создайте заголовки в строке 1:<br>
-        &nbsp;&nbsp;&nbsp;<code style="color:#d4a8ff">id | name | subtitle | price | category | tag</code><br><br>
-        <b style="color:var(--text)">3.</b> В листе <span style="color:var(--promo)">promo</span> заголовки:<br>
-        &nbsp;&nbsp;&nbsp;<code style="color:#d4a8ff">id | day | description | highlight</code><br><br>
-        <b style="color:var(--text)">4.</b> Перейдите: Расширения → Apps Script<br><br>
-        <b style="color:var(--text)">5.</b> Вставьте код скрипта (кнопка ниже) и нажмите<br>
-        &nbsp;&nbsp;&nbsp;<b style="color:var(--text)">«Развернуть» → «Веб-приложение»</b><br>
-        &nbsp;&nbsp;&nbsp;Доступ: <b style="color:var(--text)">Все</b><br><br>
-        <b style="color:var(--text)">6.</b> Скопируйте URL и вставьте выше
-      </div>
-      <div style="margin-top:14px">
-        <button class="btn btn-ghost" onclick="showScriptCode()">Показать код Apps Script</button>
+      <div class="table-wrap">
+        <div style="padding:20px;border-bottom:1px solid var(--border)">
+          <div style="font-family:Unbounded,sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Как это работает</div>
+          <div style="font-size:11px;color:var(--muted);line-height:2.2">
+            <b style="color:var(--text)">1.</b> Перейдите в <b style="color:var(--text)">Настройки</b> → введите ID вашей таблицы<br>
+            <b style="color:var(--text)">2.</b> Нажмите <b style="color:var(--text)">«↻ Загрузить из таблицы»</b> — данные появятся здесь<br>
+            <b style="color:var(--text)">3.</b> Редактируйте позиции прямо в панели<br>
+            <b style="color:var(--text)">4.</b> Чтобы изменения попали в таблицу — редактируйте её напрямую через кнопку <b style="color:var(--text)">«Открыть таблицу»</b>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="settings-card">
-      <div class="settings-card-title">Локальные данные</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-ghost" onclick="exportJSON()">Экспорт JSON</button>
-        <button class="btn btn-ghost" onclick="importJSON()">Импорт JSON</button>
-        <button class="btn btn-danger" onclick="clearAll()">Сбросить всё</button>
-      </div>
-      <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
-    </div>
-  </div>
-</div>
-```
+    <div class="page" id="page-tea"><div class="section-header"><div class="section-title" style="color:var(--tea)">✦ Чайная карта</div></div><div id="table-tea"></div></div>
+    <div class="page" id="page-soft"><div class="section-header"><div class="section-title" style="color:var(--soft)">◈ Безалкогольные напитки</div></div><div id="table-soft"></div></div>
+    <div class="page" id="page-bar"><div class="section-header"><div class="section-title" style="color:var(--bar)">◆ Карта бара</div></div><div id="table-bar"></div></div>
+    <div class="page" id="page-hookah"><div class="section-header"><div class="section-title" style="color:var(--hookah)">⬡ Кальян</div></div><div id="table-hookah"></div></div>
+    <div class="page" id="page-promo"><div class="section-header"><div class="section-title" style="color:var(--promo)">★ Акции</div></div><div id="table-promo"></div></div>
 
-  </main>
+    <div class="page" id="page-settings">
+      <div class="alert alert-warn">
+        ⚠ Прежде всего: в Google Таблице нажмите <b>«Настройки доступа»</b> → <b>«Все у кого есть ссылка»</b> → <b>Просматривать</b>. Без этого загрузка не работает.
+      </div>
+      <div class="scard">
+        <div class="stitle">ID Google Таблицы</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:12px;line-height:1.9">
+          Ваша ссылка на таблицу:<br>
+          <span style="color:var(--muted)">docs.google.com/spreadsheets/d/<b style="color:#d4a8ff">ВОТ_ЭТОТ_ID</b>/edit</span><br><br>
+          Вставьте сюда весь ID или полную ссылку — панель сама вытащит ID:
+        </div>
+        <div class="fg">
+          <label class="fl">ID или полная ссылка на таблицу</label>
+          <input class="fi" id="sheetId" placeholder="1yhfzaXSp3dN2gZ22hZvHyXl0pjo1L6DP1kbWdu9sRi0" />
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="saveSheetId()">Сохранить</button>
+          <button class="btn btn-ghost" onclick="loadFromSheets()">Загрузить данные</button>
+          <button class="btn btn-ghost" onclick="openSheet()">Открыть таблицу ↗</button>
+        </div>
+        <div id="sheetStatus" style="margin-top:10px;font-size:11px;color:var(--muted)"></div>
+      </div>
+      <div class="scard">
+        <div class="stitle">Структура листов таблицы</div>
+        <div style="font-size:11px;color:var(--muted);line-height:2.4">
+          Листы должны называться точно так:<br>
+          <span style="color:var(--tea)">tea</span> · <span style="color:var(--soft)">soft</span> · <span style="color:var(--bar)">bar</span> · <span style="color:var(--hookah)">hookah</span> · <span style="color:var(--promo)">promo</span><br><br>
+          Строка 1 в листах <b style="color:var(--text)">tea / soft / bar / hookah</b>:<br>
+          <code style="color:#d4a8ff;font-size:10px">name | subtitle | price | category | tag</code><br><br>
+          Строка 1 в листе <b style="color:var(--text)">promo</b>:<br>
+          <code style="color:#d4a8ff;font-size:10px">day | description | highlight</code>
+        </div>
+      </div>
+      <div class="scard">
+        <div class="stitle">Резервная копия</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-ghost" onclick="exportJSON()">Экспорт JSON</button>
+          <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()">Импорт JSON</button>
+          <button class="btn btn-danger" onclick="clearAll()">Сбросить</button>
+        </div>
+        <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
+      </div>
+    </div>
+
+  </div>
+</main>
 </div>
 
-<!-- MODAL: Add/Edit Item -->
-
+<!-- MODAL Item -->
 <div class="modal-overlay" id="itemModal">
   <div class="modal">
-    <div class="modal-head">
-      <div class="modal-title" id="modalTitle">Добавить позицию</div>
-      <button class="modal-close" onclick="closeModal('itemModal')">✕</button>
-    </div>
+    <div class="modal-head"><div class="modal-title" id="modalTitle">Добавить позицию</div><button class="modal-close" onclick="closeModal('itemModal')">✕</button></div>
     <div class="modal-body">
-      <input type="hidden" id="editId">
-      <input type="hidden" id="editSection">
-      <div class="form-group">
-        <label class="form-label">Название *</label>
-        <input class="form-input" id="iName" placeholder="Название позиции" />
+      <input type="hidden" id="editId"><input type="hidden" id="editSection">
+      <div class="fg"><label class="fl">Название *</label><input class="fi" id="iName" placeholder="Название позиции" /></div>
+      <div class="fr">
+        <div class="fg"><label class="fl">Цена (₽)</label><input class="fi" id="iPrice" type="number" placeholder="350" /></div>
+        <div class="fg"><label class="fl">Категория</label><input class="fi" id="iCategory" placeholder="Авторский чай" /></div>
       </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Цена (₽)</label>
-          <input class="form-input" id="iPrice" type="number" placeholder="350" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Категория</label>
-          <input class="form-input" id="iCategory" placeholder="Авторский чай" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Подпись (доп. инфо)</label>
-        <input class="form-input" id="iSubtitle" placeholder="1 литр, 125 г и т.д." />
-      </div>
-      <div class="form-group">
-        <label class="form-label">Тег (напр. ×3)</label>
-        <input class="form-input" id="iTag" placeholder="×3" />
+      <div class="fr">
+        <div class="fg"><label class="fl">Подпись</label><input class="fi" id="iSubtitle" placeholder="1 литр..." /></div>
+        <div class="fg"><label class="fl">Тег</label><input class="fi" id="iTag" placeholder="×3" /></div>
       </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('itemModal')">Отмена</button>
-      <button class="btn btn-primary" onclick="saveItem()">Сохранить</button>
-    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('itemModal')">Отмена</button><button class="btn btn-primary" onclick="saveItem()">Сохранить</button></div>
   </div>
 </div>
 
-<!-- MODAL: Add/Edit Promo -->
-
+<!-- MODAL Promo -->
 <div class="modal-overlay" id="promoModal">
   <div class="modal">
-    <div class="modal-head">
-      <div class="modal-title" id="promoModalTitle">Добавить акцию</div>
-      <button class="modal-close" onclick="closeModal('promoModal')">✕</button>
-    </div>
+    <div class="modal-head"><div class="modal-title" id="promoModalTitle">Добавить акцию</div><button class="modal-close" onclick="closeModal('promoModal')">✕</button></div>
     <div class="modal-body">
       <input type="hidden" id="editPromoId">
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">День / Период</label>
-          <select class="form-select" id="pDay">
-            <option>Ежедневно</option>
-            <option>Понедельник</option>
-            <option>Вторник</option>
-            <option>Среда</option>
-            <option>Четверг</option>
-            <option>Пятница</option>
-            <option>Суббота</option>
-            <option>Воскресенье</option>
-          </select>
+      <div class="fr">
+        <div class="fg"><label class="fl">День</label>
+          <select class="fs" id="pDay"><option>Ежедневно</option><option>Понедельник</option><option>Вторник</option><option>Среда</option><option>Четверг</option><option>Пятница</option><option>Суббота</option><option>Воскресенье</option></select>
         </div>
-        <div class="form-group">
-          <label class="form-label">Цена (если есть)</label>
-          <input class="form-input" id="pHighlight" type="text" placeholder="1 000 ₽" />
-        </div>
+        <div class="fg"><label class="fl">Цена / скидка</label><input class="fi" id="pHighlight" placeholder="1 000 ₽" /></div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Описание акции *</label>
-        <textarea class="form-textarea" id="pDesc" placeholder="Кальян + чай — специальная цена"></textarea>
-      </div>
+      <div class="fg"><label class="fl">Описание *</label><textarea class="ft" id="pDesc" placeholder="Описание акции"></textarea></div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('promoModal')">Отмена</button>
-      <button class="btn btn-primary" onclick="savePromo()">Сохранить</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: Script Code -->
-
-<div class="modal-overlay" id="scriptModal">
-  <div class="modal" style="max-width:600px">
-    <div class="modal-head">
-      <div class="modal-title">Код Apps Script</div>
-      <button class="modal-close" onclick="closeModal('scriptModal')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div style="font-size:10px;color:var(--muted);margin-bottom:10px">Скопируйте и вставьте в редактор Apps Script</div>
-      <textarea class="form-textarea" id="scriptCodeArea" style="min-height:260px;font-size:10px;line-height:1.6" readonly></textarea>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-primary" onclick="copyScriptCode()">Скопировать</button>
-      <button class="btn btn-ghost" onclick="closeModal('scriptModal')">Закрыть</button>
-    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('promoModal')">Отмена</button><button class="btn btn-primary" onclick="savePromo()">Сохранить</button></div>
   </div>
 </div>
 
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
-// ─── DATA ───────────────────────────────────────────────
-const SECTION_LABELS = {tea:'Чай',soft:'Напитки',bar:'Бар',hookah:'Кальян'};
-const BADGE_CLASS = {tea:'badge-tea',soft:'badge-soft',bar:'badge-bar',hookah:'badge-hookah'};
-const COLOR_VAR = {tea:'var(--tea)',soft:'var(--soft)',bar:'var(--bar)',hookah:'var(--hookah)'};
+const SECTIONS=['tea','soft','bar','hookah','promo'];
+const BADGE={tea:'b-tea',soft:'b-soft',bar:'b-bar',hookah:'b-hookah'};
+const COLOR={tea:'var(--tea)',soft:'var(--soft)',bar:'var(--bar)',hookah:'var(--hookah)',promo:'var(--promo)'};
+const TITLES={dashboard:'Обзор',tea:'Чайная карта',soft:'Безалкогольные напитки',bar:'Карта бара',hookah:'Кальян',promo:'Акции',settings:'Настройки'};
 
-let DB = loadDB();
+let currentPage='dashboard';
+let DB=loadDB();
 
-function defaultDB(){
-  return {
-    scriptUrl: '',
-    tea:[
-      {id:uid(),name:'Классический чай в ассортименте',subtitle:'',price:350,category:'Классический чай',tag:''},
-      {id:uid(),name:'Авторский чай облепиховый',subtitle:'',price:400,category:'Авторский чай',tag:''},
-      {id:uid(),name:'Авторский чай клюквенный',subtitle:'',price:400,category:'Авторский чай',tag:''},
-    ],
-    soft:[
-      {id:uid(),name:'Лимонады в ассортименте',subtitle:'1 литр',price:350,category:'Лимонады',tag:''},
-      {id:uid(),name:'Чипсы рифлёные',subtitle:'',price:290,category:'Снеки',tag:''},
-      {id:uid(),name:'Чипсы',subtitle:'125 г',price:250,category:'Снеки',tag:''},
-      {id:uid(),name:'Чипсы',subtitle:'90 г',price:200,category:'Снеки',tag:''},
-      {id:uid(),name:'Гренки',subtitle:'',price:60,category:'Снеки',tag:''},
-      {id:uid(),name:'Арахис',subtitle:'',price:100,category:'Снеки',tag:''},
-      {id:uid(),name:'Кальмар',subtitle:'',price:250,category:'Снеки',tag:''},
-      {id:uid(),name:'Картошка фри',subtitle:'',price:450,category:'Горячее',tag:''},
-      {id:uid(),name:'Картошка по-деревенски',subtitle:'',price:450,category:'Горячее',tag:''},
-      {id:uid(),name:'Наггетсы',subtitle:'',price:450,category:'Горячее',tag:''},
-      {id:uid(),name:'Сок в ассортименте',subtitle:'',price:180,category:'Прочее',tag:''},
-      {id:uid(),name:'Энергетик в ассортименте',subtitle:'',price:170,category:'Прочее',tag:''},
-      {id:uid(),name:'Газированные напитки в ассортименте',subtitle:'',price:180,category:'Прочее',tag:''},
-    ],
-    bar:[
-      {id:uid(),name:'Кловер клаб',subtitle:'',price:350,category:'Алкогольные коктейли',tag:''},
-      {id:uid(),name:'Апероль шпритц',subtitle:'',price:350,category:'Алкогольные коктейли',tag:''},
-      {id:uid(),name:'Лонг айленд',subtitle:'',price:500,category:'Алкогольные коктейли',tag:''},
-      {id:uid(),name:'Негрони',subtitle:'',price:450,category:'Алкогольные коктейли',tag:''},
-      {id:uid(),name:'Мартини-Фиеро тоник',subtitle:'',price:350,category:'Алкогольные коктейли',tag:''},
-      {id:uid(),name:'Джин тоник',subtitle:'',price:350,category:'Алкогольные коктейли',tag:''},
-      {id:uid(),name:'Мохито',subtitle:'',price:350,category:'Алкогольные коктейли',tag:''},
-      {id:uid(),name:'Палома',subtitle:'',price:350,category:'Алкогольные коктейли',tag:''},
-      {id:uid(),name:'Гимлет',subtitle:'',price:350,category:'Алкогольные коктейли',tag:''},
-      {id:uid(),name:'Мартини-Фиеро тоник ×3',subtitle:'',price:900,category:'Алкогольные коктейли',tag:'×3'},
-      {id:uid(),name:'Апероль шпритц ×3',subtitle:'',price:900,category:'Алкогольные коктейли',tag:'×3'},
-      {id:uid(),name:'Б-52',subtitle:'',price:180,category:'Шоты',tag:''},
-      {id:uid(),name:'Крёстный отец',subtitle:'',price:180,category:'Шоты',tag:''},
-      {id:uid(),name:'Барби',subtitle:'',price:180,category:'Шоты',tag:''},
-      {id:uid(),name:'Хот шот',subtitle:'',price:180,category:'Шоты',tag:''},
-      {id:uid(),name:'Клюквенная',subtitle:'',price:160,category:'Настойки',tag:''},
-      {id:uid(),name:'Облепиховая',subtitle:'',price:160,category:'Настойки',tag:''},
-      {id:uid(),name:'Смородиновая',subtitle:'',price:160,category:'Настойки',tag:''},
-      {id:uid(),name:'Малиновая',subtitle:'',price:160,category:'Настойки',tag:''},
-      {id:uid(),name:'Пиво в ассортименте',subtitle:'',price:200,category:'Пиво',tag:''},
-    ],
-    hookah:[
-      {id:uid(),name:'Классический',subtitle:'',price:1000,category:'Форматы',tag:''},
-      {id:uid(),name:'Крепкий',subtitle:'',price:1100,category:'Форматы',tag:''},
-      {id:uid(),name:'Авторский',subtitle:'',price:1200,category:'Форматы',tag:''},
-      {id:uid(),name:'Двойной (×2)',subtitle:'',price:1800,category:'Форматы',tag:''},
-    ],
-    promo:[
-      {id:uid(),day:'Ежедневно',description:'Кальян + чай',highlight:'1 000 ₽'},
-      {id:uid(),day:'Ежедневно',description:'Скидка на день рождения 10% (3 дня до и после)',highlight:''},
-      {id:uid(),day:'Понедельник',description:'Кальян на лёгком табаке',highlight:'500 ₽'},
-      {id:uid(),day:'Понедельник',description:'Алкогольные коктейли',highlight:'280 ₽'},
-      {id:uid(),day:'Вторник',description:'Литровая бутылка лимонада + кальян',highlight:'1 000 ₽'},
-      {id:uid(),day:'Среда',description:'Шот в подарок при заказе кальяна',highlight:''},
-      {id:uid(),day:'Среда',description:'Компания от 4 человек — настойки в подарок',highlight:''},
-      {id:uid(),day:'Четверг',description:'Авторский кальян',highlight:'1 000 ₽'},
-      {id:uid(),day:'Четверг',description:'Авторский чай + классический кальян',highlight:'1 200 ₽'},
-      {id:uid(),day:'Воскресенье',description:'Литр лимонада или чайник чая — в подарок к кальяну',highlight:''},
-    ]
-  };
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,5)}
+
+function defaultDB(){return{
+  sheetId:'1yhfzaXSp3dN2gZ22hZvHyXl0pjo1L6DP1kbWdu9sRi0',
+  tea:[
+    {id:uid(),name:'Классический чай в ассортименте',subtitle:'',price:350,category:'Классический чай',tag:''},
+    {id:uid(),name:'Авторский чай облепиховый',subtitle:'',price:400,category:'Авторский чай',tag:''},
+    {id:uid(),name:'Авторский чай клюквенный',subtitle:'',price:400,category:'Авторский чай',tag:''},
+  ],
+  soft:[
+    {id:uid(),name:'Лимонады в ассортименте',subtitle:'1 литр',price:350,category:'Лимонады',tag:''},
+    {id:uid(),name:'Чипсы рифлёные',subtitle:'',price:290,category:'Снеки',tag:''},
+    {id:uid(),name:'Чипсы',subtitle:'125 г',price:250,category:'Снеки',tag:''},
+    {id:uid(),name:'Чипсы',subtitle:'90 г',price:200,category:'Снеки',tag:''},
+    {id:uid(),name:'Гренки',subtitle:'',price:60,category:'Снеки',tag:''},
+    {id:uid(),name:'Арахис',subtitle:'',price:100,category:'Снеки',tag:''},
+    {id:uid(),name:'Кальмар',subtitle:'',price:250,category:'Снеки',tag:''},
+    {id:uid(),name:'Картошка фри',subtitle:'',price:450,category:'Горячее',tag:''},
+    {id:uid(),name:'Картошка по-деревенски',subtitle:'',price:450,category:'Горячее',tag:''},
+    {id:uid(),name:'Наггетсы',subtitle:'',price:450,category:'Горячее',tag:''},
+    {id:uid(),name:'Сок в ассортименте',subtitle:'',price:180,category:'Прочее',tag:''},
+    {id:uid(),name:'Энергетик в ассортименте',subtitle:'',price:170,category:'Прочее',tag:''},
+    {id:uid(),name:'Газированные напитки в ассортименте',subtitle:'',price:180,category:'Прочее',tag:''},
+  ],
+  bar:[
+    {id:uid(),name:'Кловер клаб',subtitle:'',price:350,category:'Коктейли',tag:''},
+    {id:uid(),name:'Апероль шпритц',subtitle:'',price:350,category:'Коктейли',tag:''},
+    {id:uid(),name:'Лонг айленд',subtitle:'',price:500,category:'Коктейли',tag:''},
+    {id:uid(),name:'Негрони',subtitle:'',price:450,category:'Коктейли',tag:''},
+    {id:uid(),name:'Мартини-Фиеро тоник',subtitle:'',price:350,category:'Коктейли',tag:''},
+    {id:uid(),name:'Джин тоник',subtitle:'',price:350,category:'Коктейли',tag:''},
+    {id:uid(),name:'Мохито',subtitle:'',price:350,category:'Коктейли',tag:''},
+    {id:uid(),name:'Палома',subtitle:'',price:350,category:'Коктейли',tag:''},
+    {id:uid(),name:'Гимлет',subtitle:'',price:350,category:'Коктейли',tag:''},
+    {id:uid(),name:'Мартини-Фиеро тоник ×3',subtitle:'',price:900,category:'Коктейли',tag:'×3'},
+    {id:uid(),name:'Апероль шпритц ×3',subtitle:'',price:900,category:'Коктейли',tag:'×3'},
+    {id:uid(),name:'Б-52',subtitle:'',price:180,category:'Шоты',tag:''},
+    {id:uid(),name:'Крёстный отец',subtitle:'',price:180,category:'Шоты',tag:''},
+    {id:uid(),name:'Барби',subtitle:'',price:180,category:'Шоты',tag:''},
+    {id:uid(),name:'Хот шот',subtitle:'',price:180,category:'Шоты',tag:''},
+    {id:uid(),name:'Клюквенная',subtitle:'',price:160,category:'Настойки',tag:''},
+    {id:uid(),name:'Облепиховая',subtitle:'',price:160,category:'Настойки',tag:''},
+    {id:uid(),name:'Смородиновая',subtitle:'',price:160,category:'Настойки',tag:''},
+    {id:uid(),name:'Малиновая',subtitle:'',price:160,category:'Настойки',tag:''},
+    {id:uid(),name:'Пиво в ассортименте',subtitle:'',price:200,category:'Пиво',tag:''},
+  ],
+  hookah:[
+    {id:uid(),name:'Классический',subtitle:'',price:1000,category:'Форматы',tag:''},
+    {id:uid(),name:'Крепкий',subtitle:'',price:1100,category:'Форматы',tag:''},
+    {id:uid(),name:'Авторский',subtitle:'',price:1200,category:'Форматы',tag:''},
+    {id:uid(),name:'Двойной (×2)',subtitle:'',price:1800,category:'Форматы',tag:''},
+  ],
+  promo:[
+    {id:uid(),day:'Ежедневно',description:'Кальян + чай',highlight:'1 000 ₽'},
+    {id:uid(),day:'Ежедневно',description:'Скидка на день рождения 10% (3 дня до и после)',highlight:''},
+    {id:uid(),day:'Понедельник',description:'Кальян на лёгком табаке',highlight:'500 ₽'},
+    {id:uid(),day:'Понедельник',description:'Алкогольные коктейли',highlight:'280 ₽'},
+    {id:uid(),day:'Вторник',description:'Литровая бутылка лимонада + кальян',highlight:'1 000 ₽'},
+    {id:uid(),day:'Среда',description:'Шот в подарок при заказе кальяна',highlight:''},
+    {id:uid(),day:'Среда',description:'Компания от 4 человек — настойки в подарок',highlight:''},
+    {id:uid(),day:'Четверг',description:'Авторский кальян',highlight:'1 000 ₽'},
+    {id:uid(),day:'Четверг',description:'Авторский чай + классический кальян',highlight:'1 200 ₽'},
+    {id:uid(),day:'Воскресенье',description:'Литр лимонада или чайник чая — в подарок к кальяну',highlight:''},
+  ]
+};}
+
+function loadDB(){try{const r=localStorage.getItem('cosmos_db3');return r?JSON.parse(r):defaultDB()}catch{return defaultDB()}}
+function saveDB(){localStorage.setItem('cosmos_db3',JSON.stringify(DB));updateStats()}
+
+// ── GOOGLE SHEETS ──────────────────────────────────────
+async function loadFromSheets(){
+  const id=DB.sheetId;
+  if(!id){toast('Введите ID таблицы в Настройках','error');showPage('settings');return}
+  const btn=document.getElementById('syncBtn');
+  btn.disabled=true;btn.textContent='↻ Загрузка...';
+  setSync('loading','Загрузка...');
+  let loaded=0;
+  for(const section of SECTIONS){
+    try{
+      const url=`https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(section)}`;
+      const r=await fetch(url);
+      if(!r.ok) continue;
+      const csv=await r.text();
+      if(csv.startsWith('<!DOCTYPE')||csv.startsWith('<html')) continue;
+      const parsed=parseCSV(csv);
+      if(parsed.length){DB[section]=parsed.map(row=>({...row,id:row.id||uid()}));loaded++}
+    }catch(e){console.error(section,e)}
+  }
+  btn.disabled=false;btn.textContent='↻ Загрузить из таблицы';
+  if(loaded>0){
+    saveDB();renderAll();
+    setSync('ok','Загружено');
+    document.getElementById('syncTime').textContent=new Date().toLocaleTimeString('ru');
+    toast('Загружено разделов: '+loaded,'success');
+  }else{
+    setSync('err','Ошибка загрузки');
+    toast('Не удалось загрузить данные. Убедитесь что:\n1) Доступ к таблице открыт для всех\n2) Листы называются: tea, soft, bar, hookah, promo','error');
+  }
 }
 
-function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
-
-function loadDB(){
-  try{
-    const raw = localStorage.getItem('cosmos_admin_db');
-    return raw ? JSON.parse(raw) : defaultDB();
-  }catch{return defaultDB()}
+function parseCSV(csv){
+  const lines=csv.trim().split('\n');
+  if(lines.length<2) return[];
+  const headers=parseLine(lines[0]);
+  return lines.slice(1).map(line=>{
+    const vals=parseLine(line);
+    const obj={};
+    headers.forEach((h,i)=>obj[h.trim()]=(vals[i]||'').trim());
+    return obj;
+  }).filter(r=>Object.values(r).some(v=>v));
+}
+function parseLine(line){
+  const res=[];let cur='';let inQ=false;
+  for(let i=0;i<line.length;i++){
+    const c=line[i];
+    if(c==='"'){inQ=!inQ}else if(c===','&&!inQ){res.push(cur);cur=''}else cur+=c;
+  }
+  res.push(cur);return res;
 }
 
-function saveDB(){
-  localStorage.setItem('cosmos_admin_db', JSON.stringify(DB));
-  updateStats();
-}
-
-// ─── RENDER ───────────────────────────────────────────────
-function renderSection(section){
-  const items = DB[section] || [];
-  const wrap = document.getElementById('table-'+section);
+// ── RENDER ──────────────────────────────────────────────
+function renderSection(s){
+  const items=DB[s]||[];
+  const wrap=document.getElementById('table-'+s);
   if(!wrap) return;
-
-  // Group by category
-  const cats = {};
-  items.forEach(item=>{
-    const c = item.category || '—';
-    if(!cats[c]) cats[c]=[];
-    cats[c].push(item);
-  });
-
-  const bc = BADGE_CLASS[section] || 'badge-tea';
-  const col = COLOR_VAR[section] || 'var(--tea)';
-
-  let html = '';
-  for(const [cat, rows] of Object.entries(cats)){
-    html += `<div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:${col};padding:10px 16px 6px;background:var(--surface2);border:1px solid var(--border);border-bottom:none;border-radius:8px 8px 0 0;margin-top:14px;opacity:.85">${cat}</div>`;
-    html += `<div class="table-wrap" style="border-radius:0 0 8px 8px;margin-top:0">`;
-    html += `<div class="table-head col-menu"><span>Название</span><span>Категория</span><span>Подпись</span><span>Цена</span><span style="text-align:right">Действия</span></div>`;
+  const cats={};
+  items.forEach(item=>{const c=item.category||'Общее';if(!cats[c])cats[c]=[];cats[c].push(item)});
+  const bc=BADGE[s]||'b-tea';
+  const col=COLOR[s]||'var(--tea)';
+  let html='';
+  for(const[cat,rows] of Object.entries(cats)){
+    html+=`<div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;padding:7px 16px 5px;color:${col};background:var(--surface2);border:1px solid var(--border);border-bottom:none;border-radius:8px 8px 0 0;margin-top:12px">${cat}</div>`;
+    html+=`<div class="table-wrap" style="margin-top:0;border-radius:0 0 8px 8px">`;
+    html+=`<div class="th"><span>Название</span><span>Категория</span><span>Подпись</span><span>Цена</span><span style="text-align:right">—</span></div>`;
     rows.forEach(item=>{
-      html += `<div class="table-row col-menu" data-id="${item.id}">
-        <span class="cell">${item.name}</span>
+      html+=`<div class="tr">
+        <span class="cell">${item.name||''}</span>
         <span class="cell"><span class="badge ${bc}">${item.category||'—'}</span></span>
         <span class="cell" style="color:var(--muted)">${item.subtitle||''}</span>
-        <span class="cell" style="font-family:Unbounded,sans-serif;font-size:11px">${item.price ? item.price+' ₽' : '—'}</span>
-        <span class="cell cell-actions">
-          ${item.tag ? `<span class="badge" style="background:rgba(240,79,79,.15);color:var(--promo);border:1px solid rgba(240,79,79,.25)">${item.tag}</span>` : ''}
-          <button class="btn btn-ghost btn-sm" onclick="openEditModal('${section}','${item.id}')">✎</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteItem('${section}','${item.id}')">✕</button>
+        <span class="cell" style="font-family:Unbounded,sans-serif;font-size:11px">${item.price?item.price+' ₽':'—'}</span>
+        <span class="cell cell-act">
+          ${item.tag?`<span class="badge b-promo">${item.tag}</span>`:''}
+          <button class="btn btn-ghost btn-sm" onclick="openEdit('${s}','${item.id}')">✎</button>
+          <button class="btn btn-danger btn-sm" onclick="delItem('${s}','${item.id}')">✕</button>
         </span>
       </div>`;
     });
-    html += '</div>';
+    html+='</div>';
   }
-
-  if(!items.length) html = `<div class="table-wrap"><div class="empty-state">Нет позиций. Нажмите «+ Добавить позицию»</div></div>`;
-  wrap.innerHTML = html;
+  if(!items.length) html=`<div class="table-wrap"><div class="empty">Нет позиций. Нажмите «+ Добавить» вверху.</div></div>`;
+  wrap.innerHTML=html;
 }
 
 function renderPromo(){
-  const items = DB.promo || [];
-  const wrap = document.getElementById('table-promo');
+  const items=DB.promo||[];
+  const wrap=document.getElementById('table-promo');
   if(!wrap) return;
-
-  let html = `<div class="table-wrap">
-    <div class="table-head col-promo"><span>День</span><span>Описание</span><span style="text-align:right">Действия</span></div>`;
+  let html=`<div class="table-wrap"><div class="th-promo"><span>День</span><span>Описание</span><span style="text-align:right">—</span></div>`;
   items.forEach(item=>{
-    html += `<div class="table-row col-promo">
-      <span class="cell"><span class="badge badge-promo-tag">${item.day}</span></span>
-      <span class="cell" style="white-space:normal;padding-right:8px">${item.description}${item.highlight ? ` — <b style="color:var(--promo)">${item.highlight}</b>` : ''}</span>
-      <span class="cell cell-actions">
+    html+=`<div class="tr-promo">
+      <span class="cell"><span class="badge b-promo">${item.day||'—'}</span></span>
+      <span style="font-size:12px;padding-right:8px;line-height:1.5">${item.description||''}${item.highlight?` — <b style="color:var(--promo)">${item.highlight}</b>`:''}</span>
+      <span class="cell-act">
         <button class="btn btn-ghost btn-sm" onclick="openEditPromo('${item.id}')">✎</button>
-        <button class="btn btn-danger btn-sm" onclick="deletePromo('${item.id}')">✕</button>
+        <button class="btn btn-danger btn-sm" onclick="delPromo('${item.id}')">✕</button>
       </span>
     </div>`;
   });
-  if(!items.length) html += `<div class="empty-state">Нет акций</div>`;
-  html += '</div>';
-  wrap.innerHTML = html;
+  if(!items.length) html+=`<div class="empty">Нет акций</div>`;
+  html+='</div>';
+  wrap.innerHTML=html;
 }
 
-function updateStats(){
-  ['tea','soft','bar','hookah','promo'].forEach(s=>{
-    const el = document.getElementById('cnt-'+s);
-    if(el) el.textContent = (DB[s]||[]).length;
-  });
+function updateStats(){SECTIONS.forEach(s=>{const el=document.getElementById('cnt-'+s);if(el)el.textContent=(DB[s]||[]).length})}
+function renderAll(){['tea','soft','bar','hookah'].forEach(renderSection);renderPromo();updateStats()}
+
+// ── NAV ─────────────────────────────────────────────────
+function showPage(page){
+  currentPage=page;
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelector(`[data-page="${page}"]`)?.classList.add('active');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page)?.classList.add('active');
+  document.getElementById('pageTitle').textContent=TITLES[page]||page;
+  const isMenu=['tea','soft','bar','hookah','promo'].includes(page);
+  document.getElementById('addBtn').style.display=isMenu?'inline-flex':'none';
+  closeSidebar();
 }
+document.querySelectorAll('.nav-item[data-page]').forEach(el=>el.addEventListener('click',()=>showPage(el.dataset.page)));
+function handleAdd(){if(currentPage==='promo')openAddPromo();else openAddItem(currentPage)}
+document.getElementById('mobileToggle').addEventListener('click',()=>{document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('open')});
+document.getElementById('sidebarOverlay').addEventListener('click',closeSidebar);
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open')}
 
-function renderAll(){
-  ['tea','soft','bar','hookah'].forEach(renderSection);
-  renderPromo();
-  updateStats();
-}
-
-// ─── NAVIGATION ───────────────────────────────────────────
-const pageTitles = {dashboard:'Обзор',tea:'Чайная карта',soft:'Безалкогольные напитки',bar:'Карта бара',hookah:'Кальян',promo:'Акции',settings:'Настройки'};
-
-document.querySelectorAll('.nav-item[data-page]').forEach(el=>{
-  el.addEventListener('click',()=>{
-    const page = el.dataset.page;
-    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-    el.classList.add('active');
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.getElementById('page-'+page).classList.add('active');
-    document.getElementById('pageTitle').textContent = pageTitles[page]||page;
-    closeSidebar();
-  });
-});
-
-// Mobile sidebar
-document.getElementById('mobileToggle').addEventListener('click',()=>{
-  document.getElementById('sidebar').classList.toggle('open');
-  document.getElementById('sidebarOverlay').classList.toggle('open');
-});
-document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
-function closeSidebar(){
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('open');
-}
-
-// ─── MODAL ───────────────────────────────────────────────
-function openAddModal(section){
-  document.getElementById('modalTitle').textContent = 'Добавить позицию';
-  document.getElementById('editId').value = '';
-  document.getElementById('editSection').value = section;
+// ── MODALS ───────────────────────────────────────────────
+function openAddItem(s){
+  document.getElementById('modalTitle').textContent='Добавить позицию';
+  document.getElementById('editId').value='';
+  document.getElementById('editSection').value=s;
   ['iName','iPrice','iCategory','iSubtitle','iTag'].forEach(id=>document.getElementById(id).value='');
   openModal('itemModal');
 }
-
-function openEditModal(section, id){
-  const item = (DB[section]||[]).find(i=>i.id===id);
-  if(!item) return;
-  document.getElementById('modalTitle').textContent = 'Редактировать позицию';
-  document.getElementById('editId').value = id;
-  document.getElementById('editSection').value = section;
-  document.getElementById('iName').value = item.name||'';
-  document.getElementById('iPrice').value = item.price||'';
-  document.getElementById('iCategory').value = item.category||'';
-  document.getElementById('iSubtitle').value = item.subtitle||'';
-  document.getElementById('iTag').value = item.tag||'';
+function openEdit(s,id){
+  const item=(DB[s]||[]).find(i=>i.id===id);if(!item) return;
+  document.getElementById('modalTitle').textContent='Редактировать';
+  document.getElementById('editId').value=id;
+  document.getElementById('editSection').value=s;
+  document.getElementById('iName').value=item.name||'';
+  document.getElementById('iPrice').value=item.price||'';
+  document.getElementById('iCategory').value=item.category||'';
+  document.getElementById('iSubtitle').value=item.subtitle||'';
+  document.getElementById('iTag').value=item.tag||'';
   openModal('itemModal');
 }
-
 function saveItem(){
-  const id = document.getElementById('editId').value;
-  const section = document.getElementById('editSection').value;
-  const name = document.getElementById('iName').value.trim();
+  const id=document.getElementById('editId').value;
+  const s=document.getElementById('editSection').value;
+  const name=document.getElementById('iName').value.trim();
   if(!name){toast('Введите название','error');return}
-  const item = {
-    id: id || uid(),
-    name,
-    price: parseInt(document.getElementById('iPrice').value)||0,
-    category: document.getElementById('iCategory').value.trim(),
-    subtitle: document.getElementById('iSubtitle').value.trim(),
-    tag: document.getElementById('iTag').value.trim(),
-  };
-  if(id){
-    const idx = DB[section].findIndex(i=>i.id===id);
-    if(idx>=0) DB[section][idx]=item;
-  }else{
-    DB[section].push(item);
-  }
-  saveDB();
-  renderSection(section);
-  closeModal('itemModal');
-  toast(id ? 'Позиция обновлена' : 'Позиция добавлена', 'success');
+  const item={id:id||uid(),name,price:parseInt(document.getElementById('iPrice').value)||0,category:document.getElementById('iCategory').value.trim(),subtitle:document.getElementById('iSubtitle').value.trim(),tag:document.getElementById('iTag').value.trim()};
+  if(id){const idx=DB[s].findIndex(i=>i.id===id);if(idx>=0)DB[s][idx]=item}else DB[s].push(item);
+  saveDB();renderSection(s);closeModal('itemModal');toast(id?'Обновлено':'Добавлено','success');
 }
-
-function deleteItem(section, id){
-  if(!confirm('Удалить позицию?')) return;
-  DB[section] = DB[section].filter(i=>i.id!==id);
-  saveDB();
-  renderSection(section);
-  toast('Позиция удалена','info');
-}
-
+function delItem(s,id){if(!confirm('Удалить?')) return;DB[s]=DB[s].filter(i=>i.id!==id);saveDB();renderSection(s);toast('Удалено','info')}
 function openAddPromo(){
   document.getElementById('promoModalTitle').textContent='Добавить акцию';
   document.getElementById('editPromoId').value='';
   document.getElementById('pDay').value='Ежедневно';
-  document.getElementById('pDesc').value='';
-  document.getElementById('pHighlight').value='';
+  document.getElementById('pDesc').value='';document.getElementById('pHighlight').value='';
   openModal('promoModal');
 }
-
 function openEditPromo(id){
-  const item = (DB.promo||[]).find(i=>i.id===id);
-  if(!item) return;
+  const item=(DB.promo||[]).find(i=>i.id===id);if(!item) return;
   document.getElementById('promoModalTitle').textContent='Редактировать акцию';
   document.getElementById('editPromoId').value=id;
   document.getElementById('pDay').value=item.day||'Ежедневно';
@@ -710,279 +520,73 @@ function openEditPromo(id){
   document.getElementById('pHighlight').value=item.highlight||'';
   openModal('promoModal');
 }
-
 function savePromo(){
-  const id = document.getElementById('editPromoId').value;
-  const desc = document.getElementById('pDesc').value.trim();
+  const id=document.getElementById('editPromoId').value;
+  const desc=document.getElementById('pDesc').value.trim();
   if(!desc){toast('Введите описание','error');return}
-  const item = {
-    id: id||uid(),
-    day: document.getElementById('pDay').value,
-    description: desc,
-    highlight: document.getElementById('pHighlight').value.trim(),
-  };
-  if(id){
-    const idx = DB.promo.findIndex(i=>i.id===id);
-    if(idx>=0) DB.promo[idx]=item;
-  }else{
-    DB.promo.push(item);
-  }
-  saveDB();
-  renderPromo();
-  closeModal('promoModal');
-  toast(id?'Акция обновлена':'Акция добавлена','success');
+  const item={id:id||uid(),day:document.getElementById('pDay').value,description:desc,highlight:document.getElementById('pHighlight').value.trim()};
+  if(id){const idx=DB.promo.findIndex(i=>i.id===id);if(idx>=0)DB.promo[idx]=item}else DB.promo.push(item);
+  saveDB();renderPromo();closeModal('promoModal');toast(id?'Обновлено':'Добавлено','success');
 }
-
-function deletePromo(id){
-  if(!confirm('Удалить акцию?')) return;
-  DB.promo = DB.promo.filter(i=>i.id!==id);
-  saveDB();
-  renderPromo();
-  toast('Акция удалена','info');
-}
-
+function delPromo(id){if(!confirm('Удалить?')) return;DB.promo=DB.promo.filter(i=>i.id!==id);saveDB();renderPromo();toast('Удалено','info')}
 function openModal(id){document.getElementById(id).classList.add('open')}
 function closeModal(id){document.getElementById(id).classList.remove('open')}
-document.querySelectorAll('.modal-overlay').forEach(m=>{
-  m.addEventListener('click',e=>{if(e.target===m) m.classList.remove('open')});
-});
+document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
 
-// ─── SETTINGS ───────────────────────────────────────────────
-function saveScriptUrl(){
-  const url = document.getElementById('scriptUrl').value.trim();
-  DB.scriptUrl = url;
-  saveDB();
-  updateSyncUI();
-  toast('URL сохранён','success');
+// ── SETTINGS ────────────────────────────────────────────
+function saveSheetId(){
+  let val=document.getElementById('sheetId').value.trim();
+  const match=val.match(/\/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
+  if(match) val=match[1];
+  DB.sheetId=val;saveDB();
+  document.getElementById('sheetId').value=val;
+  document.getElementById('sheetStatus').textContent='✓ Сохранено: '+val;
+  document.getElementById('sheetStatus').style.color='var(--tea)';
+  updateSyncUI();toast('ID сохранён','success');
 }
-
+function openSheet(){
+  const id=DB.sheetId;
+  if(!id){toast('Сначала введите ID','error');return}
+  window.open(`https://docs.google.com/spreadsheets/d/${id}/edit`,'_blank');
+}
 function updateSyncUI(){
-  const url = DB.scriptUrl||'';
-  const dot = document.getElementById('syncDot');
-  const label = document.getElementById('syncLabel');
-  if(url){
-    dot.className = 'sync-dot ok';
-    label.textContent = 'Подключено';
-  }else{
-    dot.className = 'sync-dot';
-    label.textContent = 'Не подключено';
-  }
-  document.getElementById('scriptUrl').value = url;
+  const id=DB.sheetId||'';
+  const dot=document.getElementById('syncDot');
+  const lbl=document.getElementById('syncLabel');
+  if(id){dot.className='sync-dot ok';lbl.textContent='Таблица настроена'}
+  else{dot.className='sync-dot';lbl.textContent='Не настроено'}
+  const inp=document.getElementById('sheetId');
+  if(inp&&id) inp.value=id;
 }
-
-async function testConnection(){
-  const url = DB.scriptUrl;
-  if(!url){toast('Сначала введите URL скрипта','error');return}
-  const status = document.getElementById('urlStatus');
-  status.textContent = '⟳ Проверяем...';
-  try{
-    const r = await fetch(url+'?action=ping');
-    const d = await r.json();
-    if(d.ok){
-      status.textContent = '✓ Соединение успешно!';
-      status.style.color = 'var(--tea)';
-      document.getElementById('syncDot').className='sync-dot ok';
-      toast('Соединение успешно!','success');
-    }else{
-      throw new Error(d.error||'Ошибка');
-    }
-  }catch(e){
-    status.textContent = '✕ Ошибка: '+e.message;
-    status.style.color = 'var(--promo)';
-    document.getElementById('syncDot').className='sync-dot err';
-    toast('Ошибка соединения','error');
-  }
+function setSync(state,label){
+  document.getElementById('syncDot').className='sync-dot'+(state?' '+state:'');
+  document.getElementById('syncLabel').textContent=label;
 }
-
-// ─── GOOGLE SHEETS SYNC ───────────────────────────────────────────────
-async function syncFromSheets(){
-  const url = DB.scriptUrl;
-  if(!url){toast('Настройте URL Apps Script в разделе «Настройки»','error');return}
-  const btn = document.getElementById('syncBtn');
-  btn.disabled=true; btn.textContent='↻ Загрузка...';
-  document.getElementById('syncDot').className='sync-dot loading';
-  try{
-    const r = await fetch(url+'?action=get');
-    const d = await r.json();
-    if(d.ok){
-      ['tea','soft','bar','hookah','promo'].forEach(s=>{
-        if(d.data[s]) DB[s]=d.data[s];
-      });
-      saveDB();
-      renderAll();
-      document.getElementById('syncDot').className='sync-dot ok';
-      document.getElementById('syncTime').textContent='Загружено: '+new Date().toLocaleTimeString('ru');
-      toast('Данные загружены из таблицы','success');
-    }else throw new Error(d.error||'Ошибка');
-  }catch(e){
-    document.getElementById('syncDot').className='sync-dot err';
-    toast('Ошибка загрузки: '+e.message,'error');
-  }finally{
-    btn.disabled=false; btn.textContent='↻ Загрузить';
-  }
-}
-
-async function pushToSheets(){
-  const url = DB.scriptUrl;
-  if(!url){toast('Настройте URL Apps Script в разделе «Настройки»','error');return}
-  const btn = document.getElementById('pushBtn');
-  btn.disabled=true; btn.textContent='↑ Сохранение...';
-  document.getElementById('syncDot').className='sync-dot loading';
-  try{
-    const r = await fetch(url,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({action:'set',data:{tea:DB.tea,soft:DB.soft,bar:DB.bar,hookah:DB.hookah,promo:DB.promo}})
-    });
-    const d = await r.json();
-    if(d.ok){
-      document.getElementById('syncDot').className='sync-dot ok';
-      document.getElementById('syncTime').textContent='Сохранено: '+new Date().toLocaleTimeString('ru');
-      toast('Данные сохранены в таблицу','success');
-    }else throw new Error(d.error||'Ошибка');
-  }catch(e){
-    document.getElementById('syncDot').className='sync-dot err';
-    toast('Ошибка сохранения: '+e.message,'error');
-  }finally{
-    btn.disabled=false; btn.textContent='↑ Сохранить в таблицу';
-  }
-}
-
-// ─── IMPORT/EXPORT ───────────────────────────────────────────────
 function exportJSON(){
-  const blob = new Blob([JSON.stringify(DB,null,2)],{type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'cosmos_menu_'+new Date().toISOString().slice(0,10)+'.json';
-  a.click();
-  toast('JSON экспортирован','success');
+  const b=new Blob([JSON.stringify(DB,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);
+  a.download='cosmos_'+new Date().toISOString().slice(0,10)+'.json';a.click();
+  toast('Экспортировано','success');
 }
-
-function importJSON(){document.getElementById('importFile').click()}
 function handleImport(e){
-  const file = e.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = ev=>{
-    try{
-      const d = JSON.parse(ev.target.result);
-      if(d.tea||d.soft||d.bar||d.hookah||d.promo){
-        Object.assign(DB,d);
-        saveDB();
-        renderAll();
-        updateSyncUI();
-        toast('Данные импортированы','success');
-      }else toast('Некорректный формат файла','error');
-    }catch{toast('Ошибка чтения файла','error')}
-  };
-  reader.readAsText(file);
-  e.target.value='';
+  const f=e.target.files[0];if(!f) return;
+  const r=new FileReader();
+  r.onload=ev=>{try{Object.assign(DB,JSON.parse(ev.target.result));saveDB();renderAll();updateSyncUI();toast('Импортировано','success')}catch{toast('Ошибка файла','error')}};
+  r.readAsText(f);e.target.value='';
 }
+function clearAll(){if(!confirm('Сбросить все данные?')) return;DB=defaultDB();saveDB();renderAll();updateSyncUI();toast('Сброшено','info')}
 
-function clearAll(){
-  if(!confirm('Сбросить все данные? Это действие нельзя отменить.')) return;
-  DB = defaultDB();
-  saveDB();
-  renderAll();
-  updateSyncUI();
-  toast('Данные сброшены','info');
-}
-
-// ─── APPS SCRIPT CODE ───────────────────────────────────────────────
-const APPS_SCRIPT_CODE = `// Cosmos Lounge — Google Apps Script
-// Вставьте этот код в редактор Apps Script и опубликуйте как веб-приложение
-
-const SHEET_ID = SpreadsheetApp.getActiveSpreadsheet().getId();
-const SECTIONS = ['tea', 'soft', 'bar', 'hookah', 'promo'];
-
-function doGet(e) {
-  const action = e.parameter.action;
-  if (action === 'ping') {
-    return jsonResponse({ ok: true, message: 'Cosmos Admin connected' });
-  }
-  if (action === 'get') {
-    return jsonResponse({ ok: true, data: getAllData() });
-  }
-  return jsonResponse({ ok: false, error: 'Unknown action' });
-}
-
-function doPost(e) {
-  try {
-    const body = JSON.parse(e.postData.contents);
-    if (body.action === 'set') {
-      setAllData(body.data);
-      return jsonResponse({ ok: true });
-    }
-    return jsonResponse({ ok: false, error: 'Unknown action' });
-  } catch (err) {
-    return jsonResponse({ ok: false, error: err.message });
-  }
-}
-
-function getAllData() {
-  const ss = SpreadsheetApp.openById(SHEET_ID);
-  const result = {};
-  SECTIONS.forEach(section => {
-    const sheet = ss.getSheetByName(section);
-    if (!sheet) { result[section] = []; return; }
-    const data = sheet.getDataRange().getValues();
-    const headers = data[0];
-    result[section] = data.slice(1).map(row => {
-      const obj = {};
-      headers.forEach((h, i) => obj[h] = row[i]);
-      return obj;
-    }).filter(r => r.id);
-  });
-  return result;
-}
-
-function setAllData(data) {
-  const ss = SpreadsheetApp.openById(SHEET_ID);
-  SECTIONS.forEach(section => {
-    if (!data[section]) return;
-    let sheet = ss.getSheetByName(section);
-    if (!sheet) sheet = ss.insertSheet(section);
-    sheet.clearContents();
-    
-    const items = data[section];
-    if (!items.length) return;
-    
-    const headers = Object.keys(items[0]);
-    const rows = [headers, ...items.map(item => headers.map(h => item[h] || ''))];
-    sheet.getRange(1, 1, rows.length, headers.length).setValues(rows);
-  });
-}
-
-function jsonResponse(data) {
-  return ContentService
-    .createTextOutput(JSON.stringify(data))
-    .setMimeType(ContentService.MimeType.JSON);
-}`;
-
-function showScriptCode(){
-  document.getElementById('scriptCodeArea').value = APPS_SCRIPT_CODE;
-  openModal('scriptModal');
-}
-
-function copyScriptCode(){
-  navigator.clipboard.writeText(APPS_SCRIPT_CODE).then(()=>toast('Код скопирован!','success'));
-}
-
-// ─── TOAST ───────────────────────────────────────────────
-function toast(msg, type='info'){
-  const c = document.getElementById('toastContainer');
-  const t = document.createElement('div');
-  t.className = `toast ${type}`;
-  const icons = {success:'✓',error:'✕',info:'◈'};
-  t.innerHTML = `<span>${icons[type]||'◈'}</span><span>${msg}</span>`;
+// ── TOAST ────────────────────────────────────────────────
+function toast(msg,type='info'){
+  const c=document.getElementById('toastContainer');
+  const t=document.createElement('div');t.className=`toast ${type}`;
+  t.innerHTML=`<span>${{success:'✓',error:'✕',info:'◈'}[type]||'◈'}</span><span>${msg}</span>`;
   c.appendChild(t);
-  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(20px)';t.style.transition='all .3s';setTimeout(()=>t.remove(),300)},3000);
+  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(16px)';t.style.transition='all .3s';setTimeout(()=>t.remove(),300)},5000);
 }
 
-// ─── INIT ───────────────────────────────────────────────
-renderAll();
-updateSyncUI();
+// ── INIT ─────────────────────────────────────────────────
+renderAll();updateSyncUI();
 </script>
-
 </body>
 </html>
