@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -157,95 +156,92 @@ body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospa
   </div>
   <div class="content">
 
-```
-<div class="page active" id="page-dashboard">
-  <div class="stats-grid">
-    <div class="stat-card sc-tea"><div class="stat-num" id="cnt-tea">0</div><div class="stat-label">Чай</div></div>
-    <div class="stat-card sc-soft"><div class="stat-num" id="cnt-soft">0</div><div class="stat-label">Напитки</div></div>
-    <div class="stat-card sc-bar"><div class="stat-num" id="cnt-bar">0</div><div class="stat-label">Бар</div></div>
-    <div class="stat-card sc-hookah"><div class="stat-num" id="cnt-hookah">0</div><div class="stat-label">Кальян</div></div>
-    <div class="stat-card sc-promo"><div class="stat-num" id="cnt-promo">0</div><div class="stat-label">Акции</div></div>
-  </div>
-  <div class="table-wrap">
-    <div style="padding:20px;border-bottom:1px solid var(--border)">
-      <div style="font-family:Unbounded,sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Как это работает</div>
-      <div style="font-size:11px;color:var(--muted);line-height:2.2">
-        <b style="color:var(--text)">1.</b> Перейдите в <b style="color:var(--text)">Настройки</b> → введите ID вашей таблицы<br>
-        <b style="color:var(--text)">2.</b> Нажмите <b style="color:var(--text)">«↻ Загрузить из таблицы»</b> — данные появятся здесь<br>
-        <b style="color:var(--text)">3.</b> Редактируйте позиции прямо в панели<br>
-        <b style="color:var(--text)">4.</b> Чтобы изменения попали в таблицу — редактируйте её напрямую через кнопку <b style="color:var(--text)">«Открыть таблицу»</b>
+    <div class="page active" id="page-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card sc-tea"><div class="stat-num" id="cnt-tea">0</div><div class="stat-label">Чай</div></div>
+        <div class="stat-card sc-soft"><div class="stat-num" id="cnt-soft">0</div><div class="stat-label">Напитки</div></div>
+        <div class="stat-card sc-bar"><div class="stat-num" id="cnt-bar">0</div><div class="stat-label">Бар</div></div>
+        <div class="stat-card sc-hookah"><div class="stat-num" id="cnt-hookah">0</div><div class="stat-label">Кальян</div></div>
+        <div class="stat-card sc-promo"><div class="stat-num" id="cnt-promo">0</div><div class="stat-label">Акции</div></div>
+      </div>
+      <div class="table-wrap">
+        <div style="padding:20px;border-bottom:1px solid var(--border)">
+          <div style="font-family:Unbounded,sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Как это работает</div>
+          <div style="font-size:11px;color:var(--muted);line-height:2.2">
+            <b style="color:var(--text)">1.</b> Перейдите в <b style="color:var(--text)">Настройки</b> → введите ID вашей таблицы<br>
+            <b style="color:var(--text)">2.</b> Нажмите <b style="color:var(--text)">«↻ Загрузить из таблицы»</b> — данные появятся здесь<br>
+            <b style="color:var(--text)">3.</b> Редактируйте позиции прямо в панели<br>
+            <b style="color:var(--text)">4.</b> Чтобы изменения попали в таблицу — редактируйте её напрямую через кнопку <b style="color:var(--text)">«Открыть таблицу»</b>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="page" id="page-tea"><div class="section-header"><div class="section-title" style="color:var(--tea)">✦ Чайная карта</div></div><div id="table-tea"></div></div>
-<div class="page" id="page-soft"><div class="section-header"><div class="section-title" style="color:var(--soft)">◈ Безалкогольные напитки</div></div><div id="table-soft"></div></div>
-<div class="page" id="page-bar"><div class="section-header"><div class="section-title" style="color:var(--bar)">◆ Карта бара</div></div><div id="table-bar"></div></div>
-<div class="page" id="page-hookah"><div class="section-header"><div class="section-title" style="color:var(--hookah)">⬡ Кальян</div></div><div id="table-hookah"></div></div>
-<div class="page" id="page-promo"><div class="section-header"><div class="section-title" style="color:var(--promo)">★ Акции</div></div><div id="table-promo"></div></div>
+    <div class="page" id="page-tea"><div class="section-header"><div class="section-title" style="color:var(--tea)">✦ Чайная карта</div></div><div id="table-tea"></div></div>
+    <div class="page" id="page-soft"><div class="section-header"><div class="section-title" style="color:var(--soft)">◈ Безалкогольные напитки</div></div><div id="table-soft"></div></div>
+    <div class="page" id="page-bar"><div class="section-header"><div class="section-title" style="color:var(--bar)">◆ Карта бара</div></div><div id="table-bar"></div></div>
+    <div class="page" id="page-hookah"><div class="section-header"><div class="section-title" style="color:var(--hookah)">⬡ Кальян</div></div><div id="table-hookah"></div></div>
+    <div class="page" id="page-promo"><div class="section-header"><div class="section-title" style="color:var(--promo)">★ Акции</div></div><div id="table-promo"></div></div>
 
-<div class="page" id="page-settings">
-  <div class="alert alert-warn">
-    ⚠ Прежде всего: в Google Таблице нажмите <b>«Настройки доступа»</b> → <b>«Все у кого есть ссылка»</b> → <b>Просматривать</b>. Без этого загрузка не работает.
-  </div>
-  <div class="scard">
-    <div class="stitle">ID Google Таблицы</div>
-    <div style="font-size:10px;color:var(--muted);margin-bottom:12px;line-height:1.9">
-      Ваша ссылка на таблицу:<br>
-      <span style="color:var(--muted)">docs.google.com/spreadsheets/d/<b style="color:#d4a8ff">ВОТ_ЭТОТ_ID</b>/edit</span><br><br>
-      Вставьте сюда весь ID или полную ссылку — панель сама вытащит ID:
-    </div>
-    <div class="fg">
-      <label class="fl">ID или полная ссылка на таблицу</label>
-      <input class="fi" id="sheetId" placeholder="1yhfzaXSp3dN2gZ22hZvHyXl0pjo1L6DP1kbWdu9sRi0" />
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="saveSheetId()">Сохранить</button>
-      <button class="btn btn-ghost" onclick="loadFromSheets()">Загрузить данные</button>
-      <button class="btn btn-ghost" onclick="openSheet()">Открыть таблицу ↗</button>
-    </div>
-    <div id="sheetStatus" style="margin-top:10px;font-size:11px;color:var(--muted)"></div>
-  </div>
-  <div class="scard">
-    <div class="stitle">Структура листов таблицы</div>
-    <div style="font-size:11px;color:var(--muted);line-height:2.4">
-      Листы должны называться точно так:<br>
-      <span style="color:var(--tea)">tea</span> · <span style="color:var(--soft)">soft</span> · <span style="color:var(--bar)">bar</span> · <span style="color:var(--hookah)">hookah</span> · <span style="color:var(--promo)">promo</span><br><br>
-      Строка 1 в листах <b style="color:var(--text)">tea / soft / bar / hookah</b>:<br>
-      <code style="color:#d4a8ff;font-size:10px">name | subtitle | price | category | tag</code><br><br>
-      Строка 1 в листе <b style="color:var(--text)">promo</b>:<br>
-      <code style="color:#d4a8ff;font-size:10px">day | description | highlight</code>
-    </div>
-  </div>
-  <div class="scard">
-    <div class="stitle">Лог загрузки</div>
-    <div style="display:flex;gap:8px;margin-bottom:10px">
-      <button class="btn btn-ghost btn-sm" onclick="document.getElementById('debugLog').innerHTML=''">Очистить</button>
-    </div>
-    <div id="debugLog" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;font-size:10px;color:var(--muted);line-height:1.8;max-height:300px;overflow-y:auto;font-family:'JetBrains Mono',monospace">
-      <div style="color:var(--muted)">Нажмите «Загрузить из таблицы» — здесь появится подробный лог...</div>
-    </div>
-  </div>
+    <div class="page" id="page-settings">
+      <div class="alert alert-warn">
+        ⚠ Прежде всего: в Google Таблице нажмите <b>«Настройки доступа»</b> → <b>«Все у кого есть ссылка»</b> → <b>Просматривать</b>. Без этого загрузка не работает.
+      </div>
+      <div class="scard">
+        <div class="stitle">ID Google Таблицы</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:12px;line-height:1.9">
+          Ваша ссылка на таблицу:<br>
+          <span style="color:var(--muted)">docs.google.com/spreadsheets/d/<b style="color:#d4a8ff">ВОТ_ЭТОТ_ID</b>/edit</span><br><br>
+          Вставьте сюда весь ID или полную ссылку — панель сама вытащит ID:
+        </div>
+        <div class="fg">
+          <label class="fl">ID или полная ссылка на таблицу</label>
+          <input class="fi" id="sheetId" placeholder="1yhfzaXSp3dN2gZ22hZvHyXl0pjo1L6DP1kbWdu9sRi0" />
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="saveSheetId()">Сохранить</button>
+          <button class="btn btn-ghost" onclick="loadFromSheets()">Загрузить данные</button>
+          <button class="btn btn-ghost" onclick="openSheet()">Открыть таблицу ↗</button>
+        </div>
+        <div id="sheetStatus" style="margin-top:10px;font-size:11px;color:var(--muted)"></div>
+      </div>
+      <div class="scard">
+        <div class="stitle">Структура листов таблицы</div>
+        <div style="font-size:11px;color:var(--muted);line-height:2.4">
+          Листы должны называться точно так:<br>
+          <span style="color:var(--tea)">tea</span> · <span style="color:var(--soft)">soft</span> · <span style="color:var(--bar)">bar</span> · <span style="color:var(--hookah)">hookah</span> · <span style="color:var(--promo)">promo</span><br><br>
+          Строка 1 в листах <b style="color:var(--text)">tea / soft / bar / hookah</b>:<br>
+          <code style="color:#d4a8ff;font-size:10px">name | subtitle | price | category | tag</code><br><br>
+          Строка 1 в листе <b style="color:var(--text)">promo</b>:<br>
+          <code style="color:#d4a8ff;font-size:10px">day | description | highlight</code>
+        </div>
+      </div>
+      <div class="scard">
+        <div class="stitle">Лог загрузки</div>
+        <div style="display:flex;gap:8px;margin-bottom:10px">
+          <button class="btn btn-ghost btn-sm" onclick="document.getElementById('debugLog').innerHTML=''">Очистить</button>
+        </div>
+        <div id="debugLog" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;font-size:10px;color:var(--muted);line-height:1.8;max-height:300px;overflow-y:auto;font-family:'JetBrains Mono',monospace">
+          <div style="color:var(--muted)">Нажмите «Загрузить из таблицы» — здесь появится подробный лог...</div>
+        </div>
+      </div>
 
-  <div class="scard">
-    <div class="stitle">Резервная копия</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn btn-ghost" onclick="exportJSON()">Экспорт JSON</button>
-      <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()">Импорт JSON</button>
-      <button class="btn btn-danger" onclick="clearAll()">Сбросить</button>
+      <div class="scard">
+        <div class="stitle">Резервная копия</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-ghost" onclick="exportJSON()">Экспорт JSON</button>
+          <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()">Импорт JSON</button>
+          <button class="btn btn-danger" onclick="clearAll()">Сбросить</button>
+        </div>
+        <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
+      </div>
     </div>
-    <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
-  </div>
-</div>
-```
 
   </div>
 </main>
 </div>
 
 <!-- MODAL Item -->
-
 <div class="modal-overlay" id="itemModal">
   <div class="modal">
     <div class="modal-head"><div class="modal-title" id="modalTitle">Добавить позицию</div><button class="modal-close" onclick="closeModal('itemModal')">✕</button></div>
@@ -266,7 +262,6 @@ body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospa
 </div>
 
 <!-- MODAL Promo -->
-
 <div class="modal-overlay" id="promoModal">
   <div class="modal">
     <div class="modal-head"><div class="modal-title" id="promoModalTitle">Добавить акцию</div><button class="modal-close" onclick="closeModal('promoModal')">✕</button></div>
@@ -635,6 +630,5 @@ function toast(msg,type='info'){
 // ── INIT ─────────────────────────────────────────────────
 renderAll();updateSyncUI();
 </script>
-
 </body>
 </html>
